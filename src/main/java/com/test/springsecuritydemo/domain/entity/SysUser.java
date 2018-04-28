@@ -10,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @SuppressFBWarnings({"EI_EXPOSE_REP", "SE_BAD_FIELD", "SE_NO_SERIALVERSIONID"})
 @Data
 @Entity
+@Table(indexes = {@Index(name = "sys_user_id_uniq", columnList = "username", unique = true)})
 public class SysUser implements UserDetails {
 
     @Id
