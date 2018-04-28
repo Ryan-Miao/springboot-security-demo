@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Api(value = "Role Security Test", description = "Role Security Test")
+@Api(value = "home", description = "登陆相关")
 @Controller
 public class HomeController {
 
