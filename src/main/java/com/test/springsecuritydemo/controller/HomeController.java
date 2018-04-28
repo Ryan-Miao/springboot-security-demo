@@ -29,11 +29,17 @@ public class HomeController {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String logout() {
+        return "login";
+    }
+
     @ApiOperation("提供basic登录认证.")
     @GetMapping("/login-basic")
     @ResponseBody
     public SysUser basicLogin(
-        @ApiParam("username和password 64编码") @RequestHeader(defaultValue = "Basic YWRtaW46YWRtaW4=") String authorization,
+        @ApiParam("username和password 64编码")
+        @RequestHeader(defaultValue = "Basic YWRtaW46YWRtaW4=") String authorization,
         @AuthenticationPrincipal SysUser loginUser
     ) {
         return loginUser;

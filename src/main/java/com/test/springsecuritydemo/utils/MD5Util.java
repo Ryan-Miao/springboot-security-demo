@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class MD5Util {
 
@@ -69,6 +70,19 @@ public class MD5Util {
         System.out.println("MD5 SystemWideSaltSource: " + pwd + " len=" + pwd.length());
     }
 
+    public static void bc() {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        System.out.println("admin= " + encoder.encode("admin"));
+        System.out.println("test= " + encoder.encode("test"));
+
+        //相同密码随机加密
+        System.out.println("123456= " + encoder.encode("123456"));
+        System.out.println("123456= " + encoder.encode("123456"));
+        boolean matches = encoder
+            .matches("123456", encoder.encode("123456"));
+        System.out.println("解析=" + matches);
+    }
+
     public static void main(String[] args) throws NoSuchAlgorithmException {
         md5(); // 使用简单的MD5加密方式
 
@@ -77,6 +91,8 @@ public class MD5Util {
         sha_SHA_256(); // 使用SHA-256的哈希算法(SHA)加密
 
         md5_SystemWideSaltSource(); // 使用MD5再加全局加密盐加密的方式加密
+
+        bc();//官方推荐
     }
 
 

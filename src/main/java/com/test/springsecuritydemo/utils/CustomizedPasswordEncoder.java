@@ -3,6 +3,11 @@ package com.test.springsecuritydemo.utils;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * 辅助理解加密原理。这是最简单的方式，固定加盐.
+ * @deprecated 不用这种方式，@see BCryptPasswordEncoder
+ */
+@Deprecated
 public class CustomizedPasswordEncoder implements PasswordEncoder {
 
     private static final String SALT = "密码加密的yan";
