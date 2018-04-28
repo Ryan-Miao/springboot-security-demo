@@ -1,15 +1,19 @@
 package com.test.springsecuritydemo.controller;
 
+import com.test.springsecuritydemo.domain.entity.SysUser;
 import com.test.springsecuritydemo.domain.valueobject.Msg;
-import org.springframework.security.access.annotation.Secured;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+@Api(value = "Role Security Test", description = "Role Security Test")
 @Controller
 public class HomeController {
 
@@ -25,31 +29,14 @@ public class HomeController {
         return "login";
     }
 
-    @Secured({"ROLE_ADMIN"})//此方法只允许 ROLE_ADMIN角色访问
+    @ApiOperation("提供basic登录认证.")
+    @GetMapping("/login-basic")
     @ResponseBody
-    @RequestMapping("/admin")
-    public String hello() {
-        return "hello admin";
+    public SysUser basicLogin(
+        @ApiParam("username和password 64编码") @RequestHeader(defaultValue = "Basic YWRtaW46YWRtaW4=") String authorization,
+        @AuthenticationPrincipal SysUser loginUser
+    ) {
+        return loginUser;
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})//此方法只允许OLE_USER 角色访问
-    @ResponseBody
-    @GetMapping(value = "/user")
-    public String getList() {
-        return "hello getList";
-    }
-
-
-    @ResponseBody
-    @PostMapping(value = "/user")
-    public String save() {
-        return "hello save";
-    }
-
-
-    @ResponseBody
-    @PutMapping(value = "/user")
-    public String update() {
-        return "hello update";
-    }
 }

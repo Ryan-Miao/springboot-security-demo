@@ -1,5 +1,6 @@
 package com.test.springsecuritydemo.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.test.springsecuritydemo.utils.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.List;
@@ -29,6 +30,7 @@ public class SysUser implements UserDetails {
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<SysRole> roles;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //1：此处将权限信息添加到 GrantedAuthority 对象中，在后面进行全权限验证时会使用GrantedAuthority 对象。
