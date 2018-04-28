@@ -19,8 +19,8 @@ public class SwaggerConfiguration {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("数位数据统计 API")
-            .description("数位数据统计查询")
+            .title("API")
+            .description("查询")
             .termsOfServiceUrl("")
             .version("1.0.0")
             .build();

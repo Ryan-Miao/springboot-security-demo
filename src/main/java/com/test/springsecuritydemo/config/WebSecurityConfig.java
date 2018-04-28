@@ -1,5 +1,6 @@
 package com.test.springsecuritydemo.config;
 
+import com.test.springsecuritydemo.constant.AuthorityEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableGlobalMethodSecurity(securedEnabled = true)// 控制权限注解
@@ -38,18 +41,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
-        http.authorizeRequests()
-            .antMatchers("/login*").permitAll()
-            .anyRequest().fullyAuthenticated()
+        http.headers().frameOptions().disable()
             .and()
-            .formLogin().loginPage("/login").failureUrl("/login?error")
+                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             .and()
-            .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .authorizeRequests()
+                .antMatchers("/actuator/health").permitAll()
+                .antMatchers("/actuator/**").hasAuthority(AuthorityEnum.ROLE_ADMIN.name())
+                .antMatchers("/login*").permitAll()
+                .anyRequest().fullyAuthenticated()
             .and()
-            .exceptionHandling().accessDeniedPage("/access?error")
+                .formLogin().loginPage("/login").failureUrl("/login?error")
             .and()
-            .httpBasic();
-        ;
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .and()
+                .exceptionHandling().accessDeniedPage("/access?error")
+            .and()
+             .httpBasic();
+        http.exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint());
         // @formatter:on
     }
 }
