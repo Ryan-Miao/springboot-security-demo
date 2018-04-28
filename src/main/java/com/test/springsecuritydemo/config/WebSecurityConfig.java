@@ -57,8 +57,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .exceptionHandling().accessDeniedPage("/access?error")
             .and()
-             .httpBasic();
-        http.exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint());
+                .exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint())
+            .and()
+                .httpBasic();
         // @formatter:on
     }
 }
