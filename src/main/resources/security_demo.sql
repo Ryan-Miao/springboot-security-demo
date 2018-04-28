@@ -70,8 +70,8 @@ CREATE TABLE "public"."sys_user" (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO "public"."sys_user" VALUES (2, '76bd7b432856c9ea6ce558cba9d955ff', 'test');
-INSERT INTO "public"."sys_user" VALUES (1, '25f214e1c1b400421a8ada8a213c9fcb', 'admin');
+INSERT INTO "public"."sys_user" VALUES (2, '$2a$10$773gnkZSLzcPifDWpTFW4eYU7vtzznZ3gQEZUnsthn8.c/3n6NeRq', 'test');
+INSERT INTO "public"."sys_user" VALUES (1, '$10$QiGEd0AnBXvvQA4uaml7d.XlQS/auHJjBUW/IrMCm4bzLTf1Chzau', 'admin');
 
 -- ----------------------------
 -- Table structure for sys_user_roles
