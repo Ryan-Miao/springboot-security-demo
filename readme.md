@@ -10,7 +10,7 @@ gradlew clean build bootRun
 ```
 
 
-参加`com.test.springsecuritydemo.utils.MD5Util.main`来获得加密后的密码。
+参见`com.test.springsecuritydemo.utils.MD5Util.main`来获得加密后的密码。
 
 
 
