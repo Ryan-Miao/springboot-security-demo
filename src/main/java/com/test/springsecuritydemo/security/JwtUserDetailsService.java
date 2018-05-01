@@ -2,7 +2,6 @@ package com.test.springsecuritydemo.security;
 
 import com.test.springsecuritydemo.domain.dao.SysUserRepository;
 import com.test.springsecuritydemo.domain.entity.SysUser;
-import com.test.springsecuritydemo.security.JwtUserFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,8 +11,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
+    private final SysUserRepository userRepository;
+
     @Autowired
-    SysUserRepository userRepository;
+    public JwtUserDetailsService(SysUserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
