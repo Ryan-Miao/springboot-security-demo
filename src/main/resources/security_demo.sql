@@ -1,116 +1,117 @@
 /*
- Navicat PostgreSQL Data Transfer
+Navicat PGSQL Data Transfer
 
- Source Server         : localhost
- Source Server Type    : PostgreSQL
- Source Server Version : 100003
- Source Host           : localhost:5432
- Source Catalog        : security_demo
- Source Schema         : public
+Source Server         : local-p
+Source Server Version : 100300
+Source Host           : localhost:5432
+Source Database       : security_demo
+Source Schema         : public
 
- Target Server Type    : PostgreSQL
- Target Server Version : 100003
- File Encoding         : 65001
+Target Server Type    : PGSQL
+Target Server Version : 100300
+File Encoding         : 65001
 
- Date: 28/04/2018 18:18:46
+Date: 2018-05-01 17:38:24
 */
 
-
--- ----------------------------
--- Sequence structure for hibernate_sequence
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."hibernate_sequence";
-CREATE SEQUENCE "public"."hibernate_sequence" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
 
 -- ----------------------------
 -- Table structure for room
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."room";
 CREATE TABLE "public"."room" (
-  "id" int4 NOT NULL,
-  "comment" varchar(255) COLLATE "pg_catalog"."default",
-  "create_date" timestamp(6),
-  "name" varchar(200) COLLATE "pg_catalog"."default" NOT NULL,
-  "update_date" timestamp(6)
+"id" int4 NOT NULL,
+"comment" varchar(255) COLLATE "default",
+"create_date" timestamp(6),
+"name" varchar(200) COLLATE "default" NOT NULL,
+"update_date" timestamp(6)
 )
+WITH (OIDS=FALSE)
+
 ;
+
+-- ----------------------------
+-- Records of room
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_role
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."sys_role";
 CREATE TABLE "public"."sys_role" (
-  "id" int8 NOT NULL,
-  "name" varchar(255) COLLATE "pg_catalog"."default"
+"id" int8 NOT NULL,
+"name" varchar(255) COLLATE "default" NOT NULL
 )
+WITH (OIDS=FALSE)
+
 ;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO "public"."sys_role" VALUES (1, 'ROLE_ADMIN');
-INSERT INTO "public"."sys_role" VALUES (2, 'ROLE_USER');
+INSERT INTO "public"."sys_role" VALUES ('1', 'ROLE_ADMIN');
+INSERT INTO "public"."sys_role" VALUES ('2', 'ROLE_USER');
 
 -- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."sys_user";
 CREATE TABLE "public"."sys_user" (
-  "id" int8 NOT NULL,
-  "password" varchar(255) COLLATE "pg_catalog"."default",
-  "username" varchar(255) COLLATE "pg_catalog"."default"
+"id" int8 NOT NULL,
+"enabled" bool NOT NULL,
+"last_password_reset_date" timestamp(6),
+"password" varchar(255) COLLATE "default",
+"username" varchar(255) COLLATE "default"
 )
+WITH (OIDS=FALSE)
+
 ;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO "public"."sys_user" VALUES (2, '$2a$10$773gnkZSLzcPifDWpTFW4eYU7vtzznZ3gQEZUnsthn8.c/3n6NeRq', 'test');
-INSERT INTO "public"."sys_user" VALUES (1, '$10$QiGEd0AnBXvvQA4uaml7d.XlQS/auHJjBUW/IrMCm4bzLTf1Chzau', 'admin');
+INSERT INTO "public"."sys_user" VALUES ('1', 't', '2018-05-01 17:34:17', '$2a$10$ze4MwfYe8VIbWg75wrmST.ACI7iOhDXs4QDYiMroa3EvnUskM/iFq', 'admin');
+INSERT INTO "public"."sys_user" VALUES ('2', 't', '2018-05-01 17:34:41', '$2a$10$NrH5OJgsv5CXgxH36q6ZtuwUCkEcIFGYBYXWS7bxapF4PpzaNnlJ.', 'test');
 
 -- ----------------------------
 -- Table structure for sys_user_roles
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."sys_user_roles";
 CREATE TABLE "public"."sys_user_roles" (
-  "sys_user_id" int8 NOT NULL,
-  "roles_id" int8 NOT NULL
+"sys_user_id" int8 NOT NULL,
+"roles_id" int8 NOT NULL
 )
+WITH (OIDS=FALSE)
+
 ;
 
 -- ----------------------------
 -- Records of sys_user_roles
 -- ----------------------------
-INSERT INTO "public"."sys_user_roles" VALUES (1, 1);
-INSERT INTO "public"."sys_user_roles" VALUES (2, 2);
+INSERT INTO "public"."sys_user_roles" VALUES ('1', '1');
+INSERT INTO "public"."sys_user_roles" VALUES ('2', '2');
 
 -- ----------------------------
--- Alter sequences owned by
+-- Alter Sequences Owned By
 -- ----------------------------
-SELECT setval('"public"."hibernate_sequence"', 2, false);
 
 -- ----------------------------
 -- Primary Key structure for table room
 -- ----------------------------
-ALTER TABLE "public"."room" ADD CONSTRAINT "room_pkey" PRIMARY KEY ("id");
+ALTER TABLE "public"."room" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table sys_role
 -- ----------------------------
-ALTER TABLE "public"."sys_role" ADD CONSTRAINT "sys_role_pkey" PRIMARY KEY ("id");
+ALTER TABLE "public"."sys_role" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table sys_user
 -- ----------------------------
-ALTER TABLE "public"."sys_user" ADD CONSTRAINT "sys_user_pkey" PRIMARY KEY ("id");
+ALTER TABLE "public"."sys_user" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
--- Foreign Keys structure for table sys_user_roles
+-- Foreign Key structure for table "public"."sys_user_roles"
 -- ----------------------------
-ALTER TABLE "public"."sys_user_roles" ADD CONSTRAINT "fkd0ut7sloes191bygyf7a3pk52" FOREIGN KEY ("sys_user_id") REFERENCES "public"."sys_user" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."sys_user_roles" ADD CONSTRAINT "fkdpvc6d7xqpqr43dfuk1s27cqh" FOREIGN KEY ("roles_id") REFERENCES "public"."sys_role" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."sys_user_roles" ADD FOREIGN KEY ("roles_id") REFERENCES "public"."sys_role" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."sys_user_roles" ADD FOREIGN KEY ("sys_user_id") REFERENCES "public"."sys_user" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;

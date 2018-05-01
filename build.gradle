@@ -41,6 +41,7 @@ dependencies {
     runtime('org.springframework.boot:spring-boot-devtools')
     runtime('org.postgresql:postgresql')
     compileOnly('org.projectlombok:lombok')
+    compile group: 'com.google.code.findbugs', name: 'findbugs', version: '3.0.1'
 
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
 

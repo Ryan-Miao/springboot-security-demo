@@ -3,6 +3,7 @@ package com.test.springsecuritydemo.domain.entity;
 import static org.junit.Assert.assertEquals;
 
 import com.google.common.collect.Lists;
+import com.test.springsecuritydemo.constant.AuthorityEnum;
 import java.util.Collection;
 import org.junit.Test;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,9 +28,8 @@ public class SysUserTest {
     @Test
     public void getAuthoritiesSuccess() {
 
-        String perm = "admin";
         SysRole sysRole = new SysRole();
-        sysRole.setName(perm);
+        sysRole.setName(AuthorityEnum.ROLE_ADMIN);
         SysUser sysUser = new SysUser();
         sysUser.setRoles(Lists.newArrayList(sysRole));
 
@@ -38,7 +38,7 @@ public class SysUserTest {
         assertEquals(1, authorities.size());
         authorities.forEach(a -> {
             String authority = a.getAuthority();
-            assertEquals(perm, authority);
+            assertEquals("ROLE_ADMIN", authority);
         });
     }
 }

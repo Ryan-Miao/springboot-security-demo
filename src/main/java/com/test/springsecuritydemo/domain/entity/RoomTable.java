@@ -1,6 +1,6 @@
 package com.test.springsecuritydemo.domain.entity;
 
-import com.test.springsecuritydemo.utils.SuppressFBWarnings;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;

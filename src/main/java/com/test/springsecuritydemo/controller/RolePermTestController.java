@@ -1,10 +1,14 @@
 package com.test.springsecuritydemo.controller;
 
+import com.test.springsecuritydemo.security.JwtUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Api(value = "Role Security Test", description = "Role Security Test")
 @RestController
@@ -37,5 +41,12 @@ public class RolePermTestController {
         return "所有人可见，没有特殊配置role";
     }
 
-
+    @ApiOperation("获取当前登陆用户信息.")
+    @GetMapping("/users/current")
+    @ResponseBody
+    public JwtUser currentUser(
+        @ApiIgnore @AuthenticationPrincipal JwtUser loginUser
+    ) {
+        return loginUser;
+    }
 }
