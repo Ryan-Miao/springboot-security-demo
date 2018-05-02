@@ -1,4 +1,4 @@
-package com.test.springsecuritydemo.domain.valueobject.response;
+package com.test.springsecuritydemo.security.vo;
 
 import java.io.Serializable;
 import lombok.Value;

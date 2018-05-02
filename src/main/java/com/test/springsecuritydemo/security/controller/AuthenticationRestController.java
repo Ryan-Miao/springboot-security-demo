@@ -1,7 +1,7 @@
 package com.test.springsecuritydemo.security.controller;
 
-import com.test.springsecuritydemo.domain.valueobject.request.JwtAuthenticationRequest;
-import com.test.springsecuritydemo.domain.valueobject.response.JwtAuthenticationResponse;
+import com.test.springsecuritydemo.security.AuthenticationException.JwtAuthenticationRequest;
+import com.test.springsecuritydemo.security.vo.JwtAuthenticationResponse;
 import com.test.springsecuritydemo.security.AuthenticationException;
 import com.test.springsecuritydemo.security.JwtTokenUtil;
 import com.test.springsecuritydemo.security.JwtUser;
