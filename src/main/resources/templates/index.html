@@ -35,13 +35,13 @@
         <h1 th:text="${msg.title}"></h1>
         <h2>查看<a href="/swagger-ui.html">API</a></h2>
         <p class="bg-primary" th:text="${msg.content}"></p>
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <div sec:authorize="hasAuthority('ROLE_INDEX')">
             <p class="bg-info" th:text="${msg.extraInfo}"></p>
-            has role ROLE_ADMIN
+            has permission ROLE_INDEX
         </div>
-        <div sec:authorize="hasRole('ROLE_USER')">
+        <div sec:authorize="hasAuthority('ROLE_ROOM_SHOW')">
             <p class="bg-info">无更多显示信息</p>
-            has role ROLE_USER
+            has permission ROLE_ROOM_SHOW
         </div>
         <form th:action="@{/logout}" method="post">
             <input type="submit" class="btn btn-primary" value="注销"/>

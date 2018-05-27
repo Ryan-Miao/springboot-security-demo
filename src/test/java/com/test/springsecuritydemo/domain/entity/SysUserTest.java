@@ -16,7 +16,7 @@ public class SysUserTest {
     @Test
     public void getAuthoritiesNone() {
         SysUser sysUser = new SysUser();
-        sysUser.setRoles(Lists.newArrayList());
+        sysUser.setRole(Lists.newArrayList());
 
         Collection<? extends GrantedAuthority> authorities = sysUser.getAuthorities();
         assertEquals(0, authorities.size());
@@ -31,7 +31,7 @@ public class SysUserTest {
         SysRole sysRole = new SysRole();
         sysRole.setName(AuthorityEnum.ROLE_ADMIN);
         SysUser sysUser = new SysUser();
-        sysUser.setRoles(Lists.newArrayList(sysRole));
+        sysUser.setRole(Lists.newArrayList(sysRole));
 
         Collection<? extends GrantedAuthority> authorities = sysUser.getAuthorities();
         System.out.println(authorities);

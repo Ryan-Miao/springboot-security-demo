@@ -1,15 +1,11 @@
 spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
   profiles:
     active: dev
   application:
     name: demo
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
 
 server:
-  port: 9095
+  port: 8080
 
 logging:
   file: logs/${spring.application.name}.log

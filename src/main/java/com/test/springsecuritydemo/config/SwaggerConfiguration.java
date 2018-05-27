@@ -46,7 +46,7 @@ public class SwaggerConfiguration {
 
         final Parameter authorization = new ParameterBuilder()
             .name("Authorization")
-            .description("除了登陆接口外，都需要通过此heaer来传递token")
+            .description("除了登陆接口外，都需要通过此heaer来传递token, Bearer xxx")
             .modelRef(new ModelRef("string"))
             .parameterType("header")
             .required(false)

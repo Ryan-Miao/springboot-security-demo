@@ -7,11 +7,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,6 +24,7 @@ import org.springframework.security.core.userdetails.UserDetails;
     "SE_NO_SERIALVERSIONID"}, justification = "忽略可变date返回值")
 @Data
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class SysUser implements UserDetails {
 
     private static final long serialVersionUID = 6146350055239552690L;
@@ -30,18 +34,20 @@ public class SysUser implements UserDetails {
     private Long id;
     private String username;
     private String password;
+    @Column(columnDefinition = "timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP")
     private Date lastPasswordResetDate;
     private boolean enabled;
 
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    private List<SysRole> roles;
+    private List<SysRole> role;
 
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //1：此处将权限信息添加到 GrantedAuthority 对象中，在后面进行全权限验证时会使用GrantedAuthority 对象。
-        return this.getRoles().stream()
-            .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+        return this.getRole().stream()
+            .flatMap(role -> role.getPermission().stream())
+            .map(permission -> new SimpleGrantedAuthority(permission.getName().name()))
             .collect(Collectors.toList());
     }
 

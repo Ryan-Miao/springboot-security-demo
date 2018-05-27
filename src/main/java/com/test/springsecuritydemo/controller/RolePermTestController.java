@@ -14,31 +14,25 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 public class RolePermTestController {
 
-    @Secured({"ROLE_ADMIN"})
-    @GetMapping("/admin")
-    @ApiOperation("admin权限的用户可见.")
-    public String admin() {
-        return "admin权限的用户可见";
-    }
-
-    @Secured({"ROLE_USER"})
-    @GetMapping("/user")
-    @ApiOperation("user权限的用户可见.")
-    public String user() {
-        return "user权限的用户可见";
-    }
-
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    @GetMapping("/admin-user")
-    @ApiOperation("user和admin权限的用户都可见")
-    public String role() {
-        return "user和admin权限的用户都可见";
-    }
-
-    @GetMapping("/all")
-    @ApiOperation("所有人可见，没有特殊配置role")
+    @Secured({"ROLE_INDEX"})
+    @GetMapping("/role-index")
+    @ApiOperation("admin/test用户有此权限.")
     public String all() {
-        return "所有人可见，没有特殊配置role";
+        return "admin/test用户有此权限";
+    }
+
+    @Secured({"ROLE_ROOM_SHOW"})
+    @GetMapping("/role-room-show")
+    @ApiOperation("admin用户有此权限.")
+    public String admin() {
+        return "admin用户有此权限";
+    }
+
+    @Secured({"ROLE_INDEX", "ROLE_ROOM_SHOW"})
+    @GetMapping("/admin-user")
+    @ApiOperation("admin/test权限的用户都可见")
+    public String role() {
+        return "admin/test权限的用户都可见";
     }
 
     @ApiOperation("获取当前登陆用户信息.")

@@ -39,7 +39,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-security')
     runtime('org.springframework.boot:spring-boot-devtools')
-    runtime('org.postgresql:postgresql')
+    runtime('mysql:mysql-connector-java')
     compileOnly('org.projectlombok:lombok')
     compile group: 'com.google.code.findbugs', name: 'findbugs', version: '3.0.1'
 

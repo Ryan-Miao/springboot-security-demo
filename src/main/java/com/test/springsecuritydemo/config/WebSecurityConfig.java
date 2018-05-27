@@ -76,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             .authorizeRequests()
             .antMatchers("/actuator/health").permitAll()
-            .antMatchers("/actuator/**").hasAuthority(AuthorityEnum.ROLE_ADMIN.name())
+            .antMatchers("/actuator/**").hasAuthority(AuthorityEnum.ROLE_INDEX.name())
             .antMatchers("/login*").permitAll()
             .anyRequest().authenticated()
 
