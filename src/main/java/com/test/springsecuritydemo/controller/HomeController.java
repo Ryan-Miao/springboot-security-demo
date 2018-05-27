@@ -1,12 +1,11 @@
 package com.test.springsecuritydemo.controller;
 
 import com.test.springsecuritydemo.domain.valueobject.Msg;
-import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Api(value = "home", description = "页面测试相关")
+
 @Controller
 public class HomeController {
 
